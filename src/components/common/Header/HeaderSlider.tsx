@@ -1,6 +1,6 @@
 import React from "react";
 import { useRouter } from "next/router";
-import { Button, Grid, Paper } from "@material-ui/core";
+import { Button, ButtonBase, Grid, Paper } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { routes } from "utils/routing";
 import clsx from "clsx";
@@ -19,24 +19,25 @@ interface IProps {
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    width: "90%",
     position: "absolute",
     top: "100%",
     zIndex: -1,
+    width: "90%",
     padding: theme.spacing(2, 5),
     borderRadius: 24,
     borderTopLeftRadius: 0,
     borderTopRightRadius: 0,
-    boxShadow: "0 20px 25px rgb(0 0 0 / 5%)",
-    backgroundColor: "hsla(0,0%,96.5%,.5)",
-    backdropFilter: "blur(2px)",
+    boxShadow: "0 20px 30px rgb(0 0 0 / 5%)",
+    backgroundColor: "hsla(0,0%,96.5%,.7)",
+    backdropFilter: "blur(15px)",
     transition: ".3s ease-in-out",
-    opacity: 1,
     transform: "translateY(-120%)",
+    [theme.breakpoints.down("sm")]: {
+      width: "100%",
+    },
   },
   visible: {
-    opacity: 1,
-    transform: "translateY(-3%)",
+    transform: "translateY(0%)",
   },
 }));
 
@@ -54,7 +55,7 @@ const HeaderSlider: React.FC<IProps> = ({
     <Paper
       className={clsx(classes.root, { [classes.visible]: isSliderShowing })}
     >
-      <Grid container justify="center">
+      <Grid container justify="center" spacing={5}>
         {links.map((link) => {
           const handleClick = () => {
             const route = routes.productTypePage(link.category, link.type);
@@ -62,15 +63,18 @@ const HeaderSlider: React.FC<IProps> = ({
             onSetCurrentSlider(null);
           };
           return (
-            <Grid item xs={3} key={link.id}>
+            <Grid item xs={6} md={2} key={link.id}>
               <Grid container justify="center" spacing={1}>
-                <Grid item xs={10}>
-                  <img
-                    style={{ width: "100%" }}
-                    src={link.image}
-                    alt={link.type}
-                  />
-                </Grid>
+                <ButtonBase onClick={handleClick}>
+                  <Grid item xs={10}>
+                    <img
+                      style={{ width: "100%" }}
+                      src={link.image}
+                      alt={link.type}
+                    />
+                  </Grid>
+                </ButtonBase>
+
                 <Grid item xs={12}>
                   <Grid container justify="center">
                     <Grid item>

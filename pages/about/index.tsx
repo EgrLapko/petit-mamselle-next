@@ -1,5 +1,11 @@
+import { Grid } from "@material-ui/core";
+
 const AboutPage = () => {
-  return <div>About Page</div>;
+  return (
+    <Grid container>
+      <Grid item>About Page</Grid>
+    </Grid>
+  );
 };
 
 export default AboutPage;

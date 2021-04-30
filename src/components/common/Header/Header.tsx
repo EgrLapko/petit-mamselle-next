@@ -1,16 +1,15 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState } from "react";
 import {
   AppBar,
   Toolbar,
   Grid,
   Link,
-  Button,
-  Fade,
   ClickAwayListener,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { headerLinks } from "utils/links";
 import HeaderSlider from "./HeaderSlider";
+import Button from "components/common/Button";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -21,8 +20,6 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "rgba(248, 248, 248, 1)",
   },
   link: {
-    fontSize: "13rpx",
-    textTransform: "uppercase",
     color: "rgba(105, 105, 105, .9)",
     fontWeight: 400,
     transition: ".3s",
@@ -62,13 +59,20 @@ const Header: React.FC = () => {
               <Grid container justify="center" spacing={5}>
                 {headerLinks.map((link) => {
                   const links = link.types;
+                  const isMenuPicked = currentSlider === link.category;
+
                   const handleSliderOpen = () => {
                     setCurrentSlider(link.category);
+                    if (isMenuPicked) {
+                      setCurrentSlider(null);
+                    }
                   };
                   return (
                     <>
                       <Grid item key={link.id}>
                         <Button
+                          size="large"
+                          selected={isMenuPicked}
                           className={classes.link}
                           onClick={handleSliderOpen}
                         >
