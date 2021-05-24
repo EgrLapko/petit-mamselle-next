@@ -6,7 +6,9 @@ const Layout = ({ children }) => {
     <>
       <Header />
       <main>
-        <Container maxWidth="lg">{children}</Container>
+        <Container maxWidth="lg" style={{ paddingTop: 64 }}>
+          {children}
+        </Container>
       </main>
     </>
   );
